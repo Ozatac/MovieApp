@@ -2,6 +2,11 @@ package com.tunahanozatac.movieapp.ui.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
+import com.tunahanozatac.movieapp.core.MoviesPagingSource
+import com.tunahanozatac.movieapp.data.repository.UpComingRepositoryImp
 import com.tunahanozatac.movieapp.domain.model.NowPlayingModel.MovieResponse
 import com.tunahanozatac.movieapp.domain.usecase.GetListUseCase
 import com.tunahanozatac.movieapp.domain.usecase.UpComingUseCase
@@ -17,15 +22,16 @@ import javax.inject.Inject
 class MovieListViewModel @Inject constructor(
     private val useCase: GetListUseCase,
     private val upComingUseCase: UpComingUseCase,
+    private val repository: UpComingRepositoryImp
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<Resource<MovieResponse?>> =
         MutableStateFlow(Resource.Loading(UIStatus.LOADING))
     val uiState: StateFlow<Resource<MovieResponse?>> get() = _uiState
 
-    private val _uiStateUpComing: MutableStateFlow<Resource<MovieResponse?>> =
-        MutableStateFlow(Resource.Loading(UIStatus.LOADING))
-    val uiStateUpComing: StateFlow<Resource<MovieResponse?>> get() = _uiStateUpComing
+    val moviesList = Pager(PagingConfig(1)) {
+        MoviesPagingSource(repository)
+    }.flow.cachedIn(viewModelScope)
 
     fun getList(): StateFlow<Resource<MovieResponse?>> {
         viewModelScope.launchOnIO {
@@ -48,28 +54,5 @@ class MovieListViewModel @Inject constructor(
             }
         }
         return _uiState
-    }
-
-    fun getUpComing(): StateFlow<Resource<MovieResponse?>> {
-        viewModelScope.launchOnIO {
-            when (val response = upComingUseCase.invoke(1)) {
-                is Resource.Success -> {
-                    _uiStateUpComing.emit(
-                        Resource.Success(response.data, response.state)
-                    )
-                }
-                is Resource.Error -> {
-                    _uiStateUpComing.emit(
-                        Resource.Error(
-                            "R.string.CheckYourInternetConnection", response.state
-                        )
-                    )
-                }
-                is Resource.Loading -> {
-                    _uiStateUpComing.emit(Resource.Loading(UIStatus.LOADING))
-                }
-            }
-        }
-        return _uiStateUpComing
     }
 }

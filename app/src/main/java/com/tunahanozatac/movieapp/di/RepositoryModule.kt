@@ -1,8 +1,10 @@
 package com.tunahanozatac.movieapp.di
 
 import com.tunahanozatac.movieapp.data.network.ApiServices
+import com.tunahanozatac.movieapp.data.repository.DetailsRepositoryImp
 import com.tunahanozatac.movieapp.data.repository.MovieNowPlayingRepositoryImp
 import com.tunahanozatac.movieapp.data.repository.UpComingRepositoryImp
+import com.tunahanozatac.movieapp.domain.repository.DetailsRepository
 import com.tunahanozatac.movieapp.domain.repository.ListRepository
 import com.tunahanozatac.movieapp.domain.repository.UpComingRepository
 import dagger.Module
@@ -14,7 +16,7 @@ import javax.inject.Singleton
 
 @Module(includes = [NetworkModule::class])
 @InstallIn(SingletonComponent::class)
-class ListModule {
+class RepositoryModule {
 
     @Singleton
     @Provides
@@ -34,9 +36,9 @@ class ListModule {
         return UpComingRepositoryImp(api)
     }
 
-//    @Singleton
-//    @Provides
-//    fun provideDetailsRepository(api: ApiServices): DetailsRepository {
-//        return DetailsRepositoryImp(api)
-//    }
+    @Singleton
+    @Provides
+    fun provideDetailsRepository(api: ApiServices): DetailsRepository {
+        return DetailsRepositoryImp(api)
+    }
 }

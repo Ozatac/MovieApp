@@ -18,10 +18,12 @@ class MovieListAdapter(
     var listener: ItemMovieClickListener? = null
 
     override fun bindView(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ListViewHolder).bind(currentList[position]) {
-            onClick.invoke(it)
+        getItem(position)?.let {
+            (holder as ListViewHolder).bind(it) {
+                onClick.invoke(it)
+            }
+            holder.clickListener = this
         }
-        holder.clickListener = this
     }
 
     override fun createView(

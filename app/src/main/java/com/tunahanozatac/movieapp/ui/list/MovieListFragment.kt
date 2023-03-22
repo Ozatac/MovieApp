@@ -2,11 +2,11 @@ package com.tunahanozatac.movieapp.ui.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.denzcoskun.imageslider.constants.ScaleTypes
@@ -30,6 +30,7 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding, MovieListViewMo
     ItemMovieClickListener {
 
     override val viewModel: MovieListViewModel by viewModels()
+
     private lateinit var adapter: MovieListAdapter
 
     override fun layoutResource(
@@ -41,12 +42,25 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding, MovieListViewMo
     override fun viewCreated() {
         setAdapter()
         setListeners()
+
+        lifecycleScope.launchWhenCreated {
+            viewModel.moviesList.collect {
+                adapter.submitData(it)
+            }
+        }
+
+        lifecycleScope.launchWhenCreated {
+            adapter.loadStateFlow.collect{
+                val state = it.refresh
+                binding?.loadingInc?.root?.isVisible = state is LoadState.Loading
+            }
+        }
     }
 
     private fun setListeners() {
         binding?.apply {
             swipeRefreshLayout.setOnRefreshListener {
-                //viewModel.refreshData()
+                viewModel.getList()
                 swipeRefreshLayout.isRefreshing = false
             }
         }
@@ -110,48 +124,6 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding, MovieListViewMo
                         configureVisibility(binding?.imageSlider, false)
                         configureVisibility(binding?.errorInc?.root, false)
                         configureVisibility(binding?.loadingInc?.root, true)
-                    }
-                    else -> {
-                        requireContext() toast getString(R.string.somethingWentWrong)
-                    }
-                }
-            }
-        }
-        lifecycleScope.launch {
-            viewModel.getUpComing().listen {
-                binding?.swipeRefreshLayout?.isEnabled = when (it.state) {
-                    UIStatus.SUCCESS -> {
-                        true
-                    }
-                    UIStatus.ERROR -> {
-                        false
-                    }
-                    else -> false
-                }
-
-                when (it.state) {
-                    UIStatus.SUCCESS -> {
-                        adapter.submitList(it.data?.results)
-//                        configureVisibility(binding?.imageSlider, true)
-//                        configureVisibility(binding?.errorInc?.root, false)
-//                        configureVisibility(binding?.loadingInc?.root, false)
-                    }
-                    UIStatus.ERROR -> {
-                        binding.apply {
-//                            binding?.imageSlider?.setGone()
-//                            binding?.errorInc?.root?.setVisible()
-//                            binding?.loadingInc?.root?.setGone()
-//
-//                            binding?.errorInc?.apply {
-//                                animationView.setGone()
-//                                errorText.text = it.message
-//                            }
-                        }
-                    }
-                    UIStatus.LOADING -> {
-//                        configureVisibility(binding?.imageSlider, false)
-//                        configureVisibility(binding?.errorInc?.root, false)
-//                        configureVisibility(binding?.loadingInc?.root, true)
                     }
                     else -> {
                         requireContext() toast getString(R.string.somethingWentWrong)

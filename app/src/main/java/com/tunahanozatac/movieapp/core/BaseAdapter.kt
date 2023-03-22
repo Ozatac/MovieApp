@@ -3,13 +3,14 @@ package com.tunahanozatac.movieapp.core
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder>(
+abstract class BaseAdapter<T : Any, VH : RecyclerView.ViewHolder>(
     diffCallback: DiffUtil.ItemCallback<T>
-) : ListAdapter<T, VH>(diffCallback) {
+) : PagingDataAdapter<T, VH>(diffCallback) {
 
     abstract fun bindView(holder: VH, position: Int)
     abstract fun createView(
