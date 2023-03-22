@@ -41,3 +41,15 @@ We follow Google recommended [Guide to app architecture](https://developer.andro
 |         Movies Home Screen           |           Movies Home Screen            |                Details Screen             |
 | :----------------------------------: | :---------------------------------------: | :---------------------------------------: |
 |      ![resim](https://user-images.githubusercontent.com/36333407/226935107-12378616-9289-484b-b317-2dd69bdfd832.png)      |        ![Screenshot_20230322_164433](https://user-images.githubusercontent.com/36333407/226935206-07c7647b-89c7-4a46-a62c-b7efd4745c24.png)         |        ![Screenshot_20230322_164411](https://user-images.githubusercontent.com/36333407/226935247-f98d5e22-2c81-409a-92b0-4f33fa5cd36c.png)       |
+
+## 👨🏻‍💻 Developed By
+
+<a href="https://twitter.com/piashcse" target="_blank">
+  <img src="https://avatars.githubusercontent.com/u/36333407?v=4" width="80" align="left">
+</a>
+
+**Tunahan Özataç**
+
+[![Twitter](https://img.shields.io/badge/-twitter-grey?logo=twitter)](https://twitter.com/tunahan_ozatac)
+[![Medium](https://img.shields.io/badge/-medium-grey?logo=medium)](https://medium.com/@tunahan.ozatac)
+[![Linkedin](https://img.shields.io/badge/-linkedin-grey?logo=linkedin)](https://www.linkedin.com/in/tunahan-ozatac/)
