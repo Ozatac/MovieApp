@@ -15,7 +15,7 @@ import com.denzcoskun.imageslider.models.SlideModel
 import com.tunahanozatac.movieapp.R
 import com.tunahanozatac.movieapp.core.BaseFragment
 import com.tunahanozatac.movieapp.databinding.FragmentMovieListBinding
-import com.tunahanozatac.movieapp.domain.model.NowPlayingModel.MovieModel
+import com.tunahanozatac.movieapp.domain.model.nowPlayingModel.MovieModel
 import com.tunahanozatac.movieapp.util.Constants
 import com.tunahanozatac.movieapp.util.extensions.listen
 import com.tunahanozatac.movieapp.util.extensions.setGone
@@ -50,7 +50,7 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding, MovieListViewMo
         }
 
         lifecycleScope.launchWhenCreated {
-            adapter.loadStateFlow.collect{
+            adapter.loadStateFlow.collect {
                 val state = it.refresh
                 binding?.loadingInc?.root?.isVisible = state is LoadState.Loading
             }

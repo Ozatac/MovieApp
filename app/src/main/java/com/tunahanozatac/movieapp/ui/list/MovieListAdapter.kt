@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tunahanozatac.movieapp.core.BaseAdapter
 import com.tunahanozatac.movieapp.databinding.CellItemBinding
-import com.tunahanozatac.movieapp.domain.model.NowPlayingModel.MovieModel
+import com.tunahanozatac.movieapp.domain.model.nowPlayingModel.MovieModel
 import com.tunahanozatac.movieapp.util.adapter.getDiffUtilCallBack
 
 class MovieListAdapter(
-    var onClick: (MovieModel) -> Unit,
+    private var onClick: (MovieModel) -> Unit,
 ) : BaseAdapter<MovieModel, RecyclerView.ViewHolder>(
     getDiffUtilCallBack()
 ), ClickListener {
@@ -19,8 +19,8 @@ class MovieListAdapter(
 
     override fun bindView(holder: RecyclerView.ViewHolder, position: Int) {
         getItem(position)?.let {
-            (holder as ListViewHolder).bind(it) {
-                onClick.invoke(it)
+            (holder as ListViewHolder).bind(it) { movieModel ->
+                onClick.invoke(movieModel)
             }
             holder.clickListener = this
         }

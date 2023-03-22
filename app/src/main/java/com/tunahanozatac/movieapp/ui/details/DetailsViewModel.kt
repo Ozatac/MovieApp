@@ -2,12 +2,12 @@ package com.tunahanozatac.movieapp.ui.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tunahanozatac.movieapp.domain.model.DetailsModel.MovieDetailsModel
+import com.tunahanozatac.movieapp.domain.model.detailsModel.MovieDetailsModel
 import com.tunahanozatac.movieapp.domain.usecase.DetailsUseCase
+import com.tunahanozatac.movieapp.util.extensions.launchOnIO
 import com.tunahanozatac.movieapp.util.response.Resource
 import com.tunahanozatac.movieapp.util.response.UIStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
-import com.tunahanozatac.movieapp.util.launchOnIO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject

@@ -1,6 +1,6 @@
 package com.tunahanozatac.movieapp.domain.usecase
 
-import com.tunahanozatac.movieapp.domain.model.NowPlayingModel.MovieResponse
+import com.tunahanozatac.movieapp.domain.model.nowPlayingModel.MovieResponse
 import com.tunahanozatac.movieapp.domain.repository.ListRepository
 import com.tunahanozatac.movieapp.util.response.Resource
 import javax.inject.Inject

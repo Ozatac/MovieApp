@@ -6,15 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
 
     private var _binding: VB? = null
     val binding get() = _binding
-    protected lateinit var navController: NavController
 
     abstract val viewModel: VM
 
@@ -26,9 +23,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
     abstract fun layoutResource(inflater: LayoutInflater, container: ViewGroup?): VB
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = layoutResource(inflater, container)
         return binding?.root
@@ -36,16 +31,15 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
         viewCreated()
         observerData()
         clickListeners()
     }
 
-    fun configureVisibility(view: View?,isVisible : Boolean){
-        if (isVisible){
+    fun configureVisibility(view: View?, isVisible: Boolean) {
+        if (isVisible) {
             view?.visibility = View.VISIBLE
-        }else{
+        } else {
             view?.visibility = View.GONE
         }
     }

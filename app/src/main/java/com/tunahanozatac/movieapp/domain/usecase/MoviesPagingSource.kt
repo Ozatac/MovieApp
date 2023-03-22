@@ -1,10 +1,9 @@
-package com.tunahanozatac.movieapp.core
+package com.tunahanozatac.movieapp.domain.usecase
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.tunahanozatac.movieapp.data.network.ApiServices
 import com.tunahanozatac.movieapp.data.repository.UpComingRepositoryImp
-import com.tunahanozatac.movieapp.domain.model.NowPlayingModel.MovieModel
+import com.tunahanozatac.movieapp.domain.model.nowPlayingModel.MovieModel
 import retrofit2.HttpException
 import javax.inject.Inject
 

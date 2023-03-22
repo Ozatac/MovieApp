@@ -3,7 +3,7 @@ package com.tunahanozatac.movieapp.ui.list
 import com.tunahanozatac.movieapp.R
 import com.tunahanozatac.movieapp.core.BaseViewHolder
 import com.tunahanozatac.movieapp.databinding.CellItemBinding
-import com.tunahanozatac.movieapp.domain.model.NowPlayingModel.MovieModel
+import com.tunahanozatac.movieapp.domain.model.nowPlayingModel.MovieModel
 import com.tunahanozatac.movieapp.util.Constants
 import com.tunahanozatac.movieapp.util.extensions.convertToFormattedDate
 import com.tunahanozatac.movieapp.util.extensions.loadWithGlide
@@ -24,8 +24,7 @@ class ListViewHolder(
         } else {
             binding.movieImageProgress.setVisible()
             binding.movieImage.loadWithGlide(
-                Constants.TMDB_IMAGE_URL.plus(data.backdropPath),
-                binding.movieImageProgress
+                Constants.TMDB_IMAGE_URL.plus(data.backdropPath), binding.movieImageProgress
             )
         }
 

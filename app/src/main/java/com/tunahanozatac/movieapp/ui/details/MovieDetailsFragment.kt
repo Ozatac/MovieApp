@@ -3,7 +3,6 @@ package com.tunahanozatac.movieapp.ui.details
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
@@ -12,7 +11,6 @@ import androidx.navigation.fragment.navArgs
 import com.tunahanozatac.movieapp.R
 import com.tunahanozatac.movieapp.core.BaseFragment
 import com.tunahanozatac.movieapp.databinding.FragmentMovieDetailsBinding
-import com.tunahanozatac.movieapp.ui.list.MovieListViewModel
 import com.tunahanozatac.movieapp.util.Constants
 import com.tunahanozatac.movieapp.util.extensions.*
 import com.tunahanozatac.movieapp.util.response.UIStatus
@@ -46,7 +44,8 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding, DetailsVi
     private fun setListeners() {
         binding?.imdbButton?.setOnClickListener {
             if (::imdbID.isInitialized) {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(Constants.IMDB_REDIRECT_URL.plus(imdbID)))
+                val intent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse(Constants.IMDB_REDIRECT_URL.plus(imdbID)))
                 startActivity(intent)
             } else {
                 showToast(context, "Please wait.")
@@ -67,8 +66,7 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding, DetailsVi
                                 binding?.movieDetailsCollapsingToolbar?.setVisible()
                                 binding?.movieDetailsProgressbar?.let {
                                     binding?.movieDetailsImage?.loadWithGlide(
-                                        Constants.TMDB_IMAGE_URL.plus(backdropPath),
-                                        it
+                                        Constants.TMDB_IMAGE_URL.plus(backdropPath), it
                                     )
                                 }
                             } else {
