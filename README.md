@@ -2,7 +2,7 @@
 * 100% Kotlin
 * MVVM architecture
 * Android Architecture Components and Jetpack Compose.
-* Kotlin Coroutines + Flow (Upcoming)
+* Kotlin Coroutines + Flow
 * Single activity pattern
 * Dependency injection
 
