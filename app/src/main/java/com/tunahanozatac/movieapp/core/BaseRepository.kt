@@ -16,6 +16,7 @@ abstract class BaseRepository {
                     is HttpException -> {
                         Resource.Error("Server Error", UIStatus.ERROR)
                     }
+
                     else -> {
                         Resource.Error("Network Error", UIStatus.ERROR)
                     }
