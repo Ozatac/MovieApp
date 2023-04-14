@@ -61,7 +61,6 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding, DetailsVi
                     UIStatus.SUCCESS -> {
                         response.data?.apply {
                             this@MovieDetailsFragment.imdbID = imdbID
-
                             if (backdropPath != null) {
                                 binding?.movieDetailsCollapsingToolbar?.setVisible()
                                 binding?.movieDetailsProgressbar?.let {
@@ -81,6 +80,7 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding, DetailsVi
                         configureVisibility(binding?.loadingInc?.root, false)
                         configureVisibility(binding?.errorInc?.root, false)
                     }
+
                     UIStatus.ERROR -> {
                         configureVisibility(binding?.errorInc?.root, true)
                         configureVisibility(binding?.loadingInc?.root, false)
@@ -88,10 +88,12 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding, DetailsVi
                             errorText.text = response.message
                         }
                     }
+
                     UIStatus.LOADING -> {
                         configureVisibility(binding?.loadingInc?.root, true)
                         configureVisibility(binding?.errorInc?.root, false)
                     }
+
                     else -> {
                         requireContext() toast getString(R.string.somethingWentWrong)
                     }

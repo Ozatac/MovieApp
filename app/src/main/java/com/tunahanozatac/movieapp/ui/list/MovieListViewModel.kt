@@ -5,10 +5,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.tunahanozatac.movieapp.domain.usecase.MoviesPagingSource
 import com.tunahanozatac.movieapp.data.repository.UpComingRepositoryImp
 import com.tunahanozatac.movieapp.domain.model.nowPlayingModel.MovieResponse
 import com.tunahanozatac.movieapp.domain.usecase.GetListUseCase
+import com.tunahanozatac.movieapp.domain.usecase.MoviesPagingSource
 import com.tunahanozatac.movieapp.util.extensions.launchOnIO
 import com.tunahanozatac.movieapp.util.response.Resource
 import com.tunahanozatac.movieapp.util.response.UIStatus
@@ -25,7 +25,6 @@ class MovieListViewModel @Inject constructor(
 
     private val _uiState: MutableStateFlow<Resource<MovieResponse?>> =
         MutableStateFlow(Resource.Loading(UIStatus.LOADING))
-    val uiState: StateFlow<Resource<MovieResponse?>> get() = _uiState
 
     val moviesList = Pager(PagingConfig(1)) {
         MoviesPagingSource(repository)
@@ -39,6 +38,7 @@ class MovieListViewModel @Inject constructor(
                         Resource.Success(response.data, response.state)
                     )
                 }
+
                 is Resource.Error -> {
                     _uiState.emit(
                         Resource.Error(
@@ -46,6 +46,7 @@ class MovieListViewModel @Inject constructor(
                         )
                     )
                 }
+
                 is Resource.Loading -> {
                     _uiState.emit(Resource.Loading(UIStatus.LOADING))
                 }

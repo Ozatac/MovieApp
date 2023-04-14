@@ -32,9 +32,7 @@ class MoviesPagingSource @Inject constructor(
 
     }
 
-
     override fun getRefreshKey(state: PagingState<Int, MovieModel>): Int? {
         return null
     }
-
 }

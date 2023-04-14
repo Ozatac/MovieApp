@@ -19,7 +19,6 @@ class DetailsViewModel @Inject constructor(
 
     private val _uiState: MutableStateFlow<Resource<MovieDetailsModel?>> =
         MutableStateFlow(Resource.Loading(UIStatus.LOADING))
-    val uiState: StateFlow<Resource<MovieDetailsModel?>> get() = _uiState
 
     fun getDetails(id: Int): StateFlow<Resource<MovieDetailsModel?>> {
         viewModelScope.launchOnIO {
@@ -27,6 +26,7 @@ class DetailsViewModel @Inject constructor(
                 is Resource.Success -> {
                     _uiState.emit(Resource.Success(response.data, response.state))
                 }
+
                 is Resource.Error -> {
                     _uiState.emit(
                         Resource.Error(
@@ -34,6 +34,7 @@ class DetailsViewModel @Inject constructor(
                         )
                     )
                 }
+
                 is Resource.Loading -> {
                     _uiState.emit(Resource.Loading(UIStatus.LOADING))
                 }
